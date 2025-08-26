@@ -1,14 +1,14 @@
 const $ = (s) => document.querySelector(s);
 
+let UNLOCKED = false;
+
 const els = {
     api: $('#api'),
-    // 🔽 novos elementos para múltiplos pacotes
     pkgList: $('#pkgList'),
     pkgExtra: $('#pkg-extra'),
     pkg3652: $('#pkg-3652'),
     pkg3559: $('#pkg-3559'),
     pkg3496: $('#pkg-3496'),
-    // 🔼
     type: $('#type'),
     quantity: $('#quantity'),
     duration: $('#duration'),
@@ -26,7 +26,68 @@ const els = {
     copyJson: $('#copy-json'),
     copyKeys: $('#copy-keys'),
     keysBox: $('#keysBox'),
+    // gate
+    gate: $('#gate'),
+    gatePwd: $('#gatePwd'),
+    gateBtn: $('#gateBtn'),
+    gateMsg: $('#gateMsg'),
 };
+
+// =======================
+// Gate / Senha: admin123
+// =======================
+const GATE_HASH =
+    '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'; // sha256('admin123')
+
+async function sha256Hex(str) {
+    const d = new TextEncoder().encode(str);
+    const h = await crypto.subtle.digest('SHA-256', d);
+    return [...new Uint8Array(h)]
+        .map((b) => b.toString(16).padStart(2, '0'))
+        .join('');
+}
+
+async function tryUnlock() {
+    const v = els.gatePwd.value || '';
+    const ok = (await sha256Hex(v)) === GATE_HASH;
+    if (!ok) {
+        els.gatePwd.value = '';
+        els.gatePwd.focus();
+        els.gateMsg.textContent = 'Senha incorreta.';
+        els.gateMsg.style.color = '#fecaca';
+        return;
+    }
+    UNLOCKED = true;
+    sessionStorage.setItem('vlk_unlocked', '1');
+    document.body.classList.remove('locked');
+    els.gate.style.display = 'none';
+    setStatus(true, 'Acesso liberado.');
+}
+
+els.gateBtn?.addEventListener('click', tryUnlock);
+els.gatePwd?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') tryUnlock();
+});
+
+// Se já desbloqueou nesta sessão, pula o gate
+if (sessionStorage.getItem('vlk_unlocked') === '1') {
+    UNLOCKED = true;
+    document.body.classList.remove('locked');
+    els.gate.style.display = 'none';
+} else {
+    // foco inicial
+    setTimeout(() => els.gatePwd?.focus(), 0);
+}
+
+// Anti-“remover overlay” tosco: se gate sumir sem unlock, recarrega
+const mo = new MutationObserver(() => {
+    if (!UNLOCKED && !document.getElementById('gate')) location.reload();
+});
+mo.observe(document.body, { childList: true, subtree: true });
+
+// =======================
+// App original
+// =======================
 
 // Persistência simples
 const LS_KEY = 'vlk_form';
@@ -55,7 +116,7 @@ function isoEndDate() {
     return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString();
 }
 
-// 🔽 coleta IDs selecionados + extras
+// IDs selecionados + extras
 function getSelectedPackageIds() {
     const selected = [
         ...els.pkgList.querySelectorAll(
@@ -68,7 +129,6 @@ function getSelectedPackageIds() {
         .map((s) => parseInt(s.trim(), 10))
         .filter((n) => !isNaN(n));
 
-    // remove duplicados
     return [...new Set([...selected, ...extras])];
 }
 
@@ -78,7 +138,7 @@ function buildBody() {
     const duration = parseInt(els.duration.value || '1', 10);
     const unit = els.unit.value;
     const type = els.type.value;
-    const alias = els.alias.value.trim();
+    const alias = els.alias ? els.alias.value.trim() : '';
     const isCleanable = !!els.isCleanable.checked;
     const endDate = isoEndDate();
 
@@ -196,6 +256,12 @@ els.copyKeys.addEventListener('click', () => {
 });
 
 els.send.addEventListener('click', async () => {
+    if (!UNLOCKED) {
+        setStatus(false, 'Informe a senha de administrador.');
+        els.gatePwd?.focus();
+        return;
+    }
+
     const url = els.api.value || '/api/key';
     const body = buildBody();
 

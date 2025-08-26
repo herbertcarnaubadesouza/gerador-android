@@ -6,7 +6,7 @@
         <title>Gerar chaves — VLK STORE</title>
         <link rel="stylesheet" href="./ios/styles.css" />
     </head>
-    <body>
+    <body class="locked">
         <div class="wrap">
             <h1 class="title">
                 Gerar chaves — <span class="brand">VLK STORE</span>
@@ -26,7 +26,7 @@
                         </div>
                     </div>
 
-                    <!-- 🔽 NOVO: seleção múltipla de pacotes -->
+                    <!-- Seleção múltipla de pacotes -->
                     <div>
                         <label class="small">Pacotes</label>
                         <div id="pkgList" class="grid" style="gap: 8px">
@@ -71,7 +71,6 @@
                             placeholder="Ex.: 1111,2222"
                         />
                     </div>
-                    <!-- 🔼 FIM NOVO -->
 
                     <div>
                         <label class="small">Quantidade de chaves</label>
@@ -169,6 +168,28 @@
 
                     <div id="keysBox" class="keys" style="display: none"></div>
                 </section>
+            </div>
+        </div>
+
+        <!-- ===== Overlay (Portão de senha) ===== -->
+        <div id="gate" role="dialog" aria-modal="true">
+            <div class="gate-card">
+                <h3 class="gate-title">Acesso restrito</h3>
+                <div class="gate-sub">
+                    Digite a senha de administrador para continuar.
+                </div>
+                <div class="gate-row">
+                    <input
+                        id="gatePwd"
+                        type="password"
+                        placeholder="Senha de administrador"
+                        autocomplete="off"
+                    />
+                    <button id="gateBtn">Entrar</button>
+                </div>
+                <div id="gateMsg" class="gate-hint">
+                    Dica: a senha tem 8 caracteres…
+                </div>
             </div>
         </div>
 
