@@ -4,206 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Gerar chaves — VLK STORE</title>
-        <style>
-            :root {
-                --bg: #0b0b0c;
-                --panel: #141416;
-                --muted: #2a2a2e;
-                --soft: #242428;
-                --txt: #e8e8ea;
-                --sub: #a7a7ad;
-                --brand: #ef4444;
-                --brand-2: #f87171;
-                --ok: #22c55e;
-                --bad: #ef4444;
-                --code: #0f0f10;
-            }
-            * {
-                box-sizing: border-box;
-            }
-            html,
-            body {
-                height: 100%;
-            }
-            body {
-                margin: 0;
-                font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto,
-                    Inter;
-                color: var(--txt);
-                background: radial-gradient(
-                        1200px 600px at 20% -10%,
-                        #1c1214 0%,
-                        transparent 55%
-                    ),
-                    var(--bg);
-            }
-            .wrap {
-                max-width: 1060px;
-                margin: 32px auto;
-                padding: 0 16px;
-            }
-            .title {
-                font-size: 26px;
-                font-weight: 700;
-                margin: 0 0 14px;
-            }
-            .brand {
-                color: var(--brand);
-            }
-            .card {
-                background: var(--panel);
-                border: 1px solid var(--soft);
-                border-radius: 16px;
-                padding: 18px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.02);
-            }
-            .grid {
-                display: grid;
-                gap: 14px;
-            }
-            @media (min-width: 700px) {
-                .grid.cols-3 {
-                    grid-template-columns: repeat(3, 1fr);
-                }
-                .grid.cols-2 {
-                    grid-template-columns: repeat(2, 1fr);
-                }
-            }
-            label.small {
-                display: block;
-                font-size: 12px;
-                color: var(--sub);
-                margin: 0 0 6px;
-            }
-            input[type='text'],
-            input[type='number'],
-            input[type='date'],
-            select,
-            textarea {
-                width: 100%;
-                background: var(--code);
-                color: var(--txt);
-                border: 1px solid var(--muted);
-                border-radius: 10px;
-                padding: 10px 12px;
-                outline: none;
-                transition: 0.2s border;
-            }
-            input:focus,
-            select:focus,
-            textarea:focus {
-                border-color: var(--brand);
-            }
-            .row {
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-                align-items: center;
-            }
-            .hint {
-                font-size: 12px;
-                color: var(--sub);
-                margin-top: 6px;
-            }
-            .switch {
-                display: inline-flex;
-                gap: 8px;
-                align-items: center;
-                font-size: 14px;
-            }
-            .btn {
-                border: 0;
-                border-radius: 12px;
-                padding: 10px 14px;
-                cursor: pointer;
-                background: linear-gradient(180deg, var(--brand), #b91c1c);
-                color: #fff;
-                font-weight: 600;
-                box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
-                transition: transform 0.06s ease;
-            }
-            .btn:active {
-                transform: translateY(1px);
-            }
-            .btn:disabled {
-                opacity: 0.6;
-                cursor: default;
-            }
-            .btn-ghost {
-                background: transparent;
-                color: var(--txt);
-                border: 1px solid var(--muted);
-            }
-            pre {
-                margin: 0;
-                padding: 14px;
-                overflow: auto;
-                background: var(--code);
-                border: 1px solid var(--soft);
-                border-radius: 12px;
-                font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas,
-                    'Liberation Mono', monospace;
-                white-space: pre-wrap;
-            }
-            .tag {
-                display: inline-block;
-                padding: 4px 8px;
-                border-radius: 999px;
-                font-size: 12px;
-                border: 1px solid var(--muted);
-                background: #0f0f10;
-            }
-            .ok {
-                color: #bbf7d0;
-                border-color: #134e2b;
-                background: #052e17;
-            }
-            .bad {
-                color: #fecaca;
-                border-color: #7f1d1d;
-                background: #2b1111;
-            }
-            .keys {
-                display: grid;
-                gap: 8px;
-                margin-top: 10px;
-            }
-            .key {
-                background: #101012;
-                border: 1px dashed #3a3a40;
-                border-radius: 10px;
-                padding: 8px 10px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 10px;
-            }
-            .key code {
-                font-size: 13px;
-            }
-            .pill {
-                font-size: 11px;
-                padding: 3px 8px;
-                border-radius: 999px;
-                border: 1px solid #3a3a40;
-                background: #16161a;
-                color: #c8c8cc;
-            }
-            .loader {
-                width: 18px;
-                height: 18px;
-                border: 2px solid #ffffff30;
-                border-top-color: #fff;
-                border-radius: 50%;
-                animation: spin 0.7s linear infinite;
-            }
-            @keyframes spin {
-                to {
-                    transform: rotate(360deg);
-                }
-            }
-        </style>
+        <link rel="stylesheet" href="./ios/styles.css" />
     </head>
     <body>
         <div class="wrap">
@@ -224,11 +25,54 @@
                             Insira os dados para gerar sua key
                         </div>
                     </div>
+
+                    <!-- 🔽 NOVO: seleção múltipla de pacotes -->
                     <div>
-                        <label class="small">Package ID</label>
-                        <input id="pkg" type="number" value="3559" />
-                        <div class="hint">ID do pacote (VLK STORE)</div>
+                        <label class="small">Pacotes</label>
+                        <div id="pkgList" class="grid" style="gap: 8px">
+                            <label class="row" style="gap: 8px">
+                                <input
+                                    id="pkg-3652"
+                                    type="checkbox"
+                                    data-id="3652"
+                                />
+                                <span
+                                    >painel free
+                                    <span class="pill">3652</span></span
+                                >
+                            </label>
+                            <label class="row" style="gap: 8px">
+                                <input
+                                    id="pkg-3559"
+                                    type="checkbox"
+                                    data-id="3559"
+                                    checked
+                                />
+                                <span
+                                    >VLK STORE
+                                    <span class="pill">3559</span></span
+                                >
+                            </label>
+                            <label class="row" style="gap: 8px">
+                                <input
+                                    id="pkg-3496"
+                                    type="checkbox"
+                                    data-id="3496"
+                                />
+                                <span>xxx <span class="pill">3496</span></span>
+                            </label>
+                        </div>
+                        <div class="hint">
+                            Marque 1+ pacotes. (Opcional) IDs extras abaixo:
+                        </div>
+                        <input
+                            id="pkg-extra"
+                            type="text"
+                            placeholder="Ex.: 1111,2222"
+                        />
                     </div>
+                    <!-- 🔼 FIM NOVO -->
+
                     <div>
                         <label class="small">Quantidade de chaves</label>
                         <input id="quantity" type="number" min="1" value="1" />
@@ -293,7 +137,7 @@
                         <input id="isCleanable" type="checkbox" checked />
                         <span>isCleanable</span>
                     </label>
-                    <span class="tag">Pacote padrão: 3559 (VLK STORE)</span>
+                    <span class="tag">Múltiplos pacotes suportados</span>
                 </div>
 
                 <div class="row" style="margin-top: 16px; gap: 8px">
@@ -328,249 +172,6 @@
             </div>
         </div>
 
-        <script>
-            const $ = (s) => document.querySelector(s);
-            const els = {
-                api: $('#api'),
-                pkg: $('#pkg'),
-                type: $('#type'),
-                quantity: $('#quantity'),
-                duration: $('#duration'),
-                unit: $('#unit'),
-                alias: $('#alias'),
-                isCleanable: $('#isCleanable'),
-                endDate: $('#endDate'),
-                activateCount: $('#activateCount'),
-                multiBox: $('#multiBox'),
-                preview: $('#preview'),
-                resp: $('#resp'),
-                respEmpty: $('#respEmpty'),
-                statusArea: $('#statusArea'),
-                send: $('#send'),
-                copyJson: $('#copy-json'),
-                copyKeys: $('#copy-keys'),
-                keysBox: $('#keysBox'),
-            };
-
-            // Persistência simples
-            const LS_KEY = 'vlk_form';
-            try {
-                const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
-                for (const k in saved)
-                    if (els[k]) {
-                        if (els[k].type === 'checkbox')
-                            els[k].checked = !!saved[k];
-                        else els[k].value = saved[k];
-                    }
-            } catch {}
-
-            function saveState() {
-                const st = {};
-                Object.entries(els).forEach(([k, el]) => {
-                    if (!el || !('value' in el || 'checked' in el)) return;
-                    st[k] = el.type === 'checkbox' ? el.checked : el.value;
-                });
-                localStorage.setItem(LS_KEY, JSON.stringify(st));
-            }
-
-            function isoEndDate() {
-                if (!els.endDate.value) return undefined;
-                const d = new Date(els.endDate.value + 'T23:59:59');
-                return new Date(
-                    d.getTime() - d.getTimezoneOffset() * 60000
-                ).toISOString();
-            }
-
-            function buildBody() {
-                const pkgId = parseInt(els.pkg.value || '0', 10);
-                const quantity = parseInt(els.quantity.value || '1', 10);
-                const duration = parseInt(els.duration.value || '1', 10);
-                const unit = els.unit.value;
-                const type = els.type.value;
-                const alias = els.alias.value.trim();
-                const isCleanable = !!els.isCleanable.checked;
-                const endDate = isoEndDate();
-
-                const body = {
-                    type,
-                    quantity,
-                    packageIds: [pkgId],
-                    duration,
-                    unit,
-                    alias: alias || undefined,
-                    isCleanable,
-                    endDate,
-                };
-                if (type === 'multi') {
-                    const ac = parseInt(els.activateCount.value || '2', 10);
-                    body.activateCount = ac;
-                }
-                return body;
-            }
-
-            function refreshPreview() {
-                const b = buildBody();
-                els.preview.textContent = JSON.stringify(b, null, 2);
-            }
-
-            function setStatus(ok, msg) {
-                els.statusArea.innerHTML = `<span class="tag ${
-                    ok ? 'ok' : 'bad'
-                }">${msg}</span>`;
-            }
-
-            function toggleLoading(on) {
-                els.send.disabled = on;
-                els.send.innerHTML = on
-                    ? `<span class="loader" aria-hidden="true"></span>`
-                    : 'Gerar chaves';
-            }
-
-            function parseKeysFromResponse(obj) {
-                // formato comum do backend: { message, data: [ "key1", "key2" ] }
-                if (obj && Array.isArray(obj.data)) return obj.data;
-                // fallback: se vier como { raw: "..."} tenta extrair com regex
-                if (obj && typeof obj.raw === 'string') {
-                    const m = obj.raw.match(/authtool[^\s"']+/g);
-                    if (m) return m;
-                }
-                // se vier array direto
-                if (Array.isArray(obj)) return obj;
-                return [];
-            }
-
-            function renderKeys(keys) {
-                if (!keys.length) {
-                    els.keysBox.style.display = 'none';
-                    els.keysBox.innerHTML = '';
-                    return;
-                }
-                els.keysBox.style.display = '';
-                els.keysBox.innerHTML = keys
-                    .map(
-                        (k) =>
-                            `<div class="key">
-             <code>${k}</code>
-             <button class="btn btn-ghost" data-copy="${k}">copiar</button>
-           </div>`
-                    )
-                    .join('');
-            }
-
-            // Eventos
-            document.addEventListener('input', (e) => {
-                if (e.target === els.type) {
-                    const multi = els.type.value === 'multi';
-                    els.multiBox.style.display = multi ? '' : 'none';
-                }
-                refreshPreview();
-                saveState();
-            });
-            ['change', 'keyup'].forEach((ev) => {
-                document.addEventListener(ev, (e) => {
-                    if (
-                        e.target.tagName === 'INPUT' ||
-                        e.target.tagName === 'SELECT'
-                    ) {
-                        refreshPreview();
-                        saveState();
-                    }
-                });
-            });
-
-            els.copyJson.addEventListener('click', () => {
-                navigator.clipboard.writeText(els.preview.textContent || '{}');
-                setStatus(true, 'JSON copiado');
-                setTimeout(() => (els.statusArea.innerHTML = ''), 2500);
-            });
-
-            els.keysBox.addEventListener('click', (e) => {
-                const btn = e.target.closest('button[data-copy]');
-                if (!btn) return;
-                const v = btn.getAttribute('data-copy');
-                navigator.clipboard.writeText(v || '');
-                setStatus(true, 'Chave copiada');
-                setTimeout(() => (els.statusArea.innerHTML = ''), 2000);
-            });
-
-            els.copyKeys.addEventListener('click', () => {
-                const codes = [...els.keysBox.querySelectorAll('code')]
-                    .map((c) => c.textContent.trim())
-                    .filter(Boolean);
-                if (!codes.length) {
-                    setStatus(false, 'Sem chaves para copiar');
-                    return;
-                }
-                navigator.clipboard.writeText(codes.join('\n'));
-                setStatus(true, `${codes.length} chave(s) copiadas`);
-                setTimeout(() => (els.statusArea.innerHTML = ''), 2500);
-            });
-
-            els.send.addEventListener('click', async () => {
-                const url = els.api.value || '/api/key';
-                const body = buildBody();
-
-                // validações
-                if (!body.packageIds?.length || !body.packageIds[0])
-                    return setStatus(false, 'Package ID inválido');
-                if (body.quantity < 1)
-                    return setStatus(false, 'Quantidade inválida');
-                if (body.duration < 1)
-                    return setStatus(false, 'Duração inválida');
-                if (
-                    body.type === 'multi' &&
-                    (!body.activateCount || body.activateCount < 2)
-                )
-                    return setStatus(false, 'activateCount ≥ 2 para multi');
-
-                toggleLoading(true);
-                setStatus(true, 'Enviando…');
-                els.resp.style.display = 'none';
-                els.respEmpty.style.display = '';
-                renderKeys([]);
-
-                try {
-                    const r = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(body),
-                    });
-                    const text = await r.text();
-                    const isJSON =
-                        text.trim().startsWith('{') ||
-                        text.trim().startsWith('[');
-                    const out = isJSON ? JSON.parse(text) : { raw: text };
-
-                    els.resp.textContent = JSON.stringify(out, null, 2);
-                    els.resp.style.display = 'block';
-                    els.respEmpty.style.display = 'none';
-
-                    const keys = parseKeysFromResponse(out);
-                    renderKeys(keys);
-
-                    if (r.ok)
-                        setStatus(
-                            true,
-                            `Chave(s) criada(s): ${
-                                keys.length || body.quantity
-                            }`
-                        );
-                    else setStatus(false, `Erro HTTP ${r.status}`);
-                } catch (err) {
-                    els.resp.textContent = String(err);
-                    els.resp.style.display = 'block';
-                    els.respEmpty.style.display = 'none';
-                    setStatus(false, 'Falha na requisição');
-                } finally {
-                    toggleLoading(false);
-                }
-            });
-
-            // init
-            refreshPreview();
-            // mostra caixa multi se já estiver selecionado
-            els.multiBox.style.display =
-                els.type.value === 'multi' ? '' : 'none';
-        </script>
+        <script src="./ios/app.js"></script>
     </body>
 </html>
